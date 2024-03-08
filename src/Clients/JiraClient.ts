@@ -96,6 +96,20 @@ export class JiraClient implements ITfsClient{
         issueResponseList.forEach((issueResponse: any) => {
           issueResponse.json.issues.forEach((issue:any) => {
 
+			let linkedIssues:string[] = [];
+			// console.log(issue);
+			issue.fields["issuelinks"].forEach((issuelink:any) => {
+				if (issuelink["inwardIssue"]) {
+					linkedIssues.push(issuelink["inwardIssue"]["key"]);
+				}
+				
+				if (issuelink["outwardIssue"]) {
+					linkedIssues.push(issuelink["outwardIssue"]["key"]);
+				}
+
+			});
+			// console.log(linkedIssues.join(', '));
+
             let assigneeName = 'Unassigned'
             let assignee = issue.fields["assignee"];
             if (assignee !== null) {
@@ -118,7 +132,8 @@ export class JiraClient implements ITfsClient{
               issue.fields["issuetype"]["name"], 
               assigneeName, 
               `https://${settings.jiraSettings.baseUrl}/browse/${issue.key}`, 
-              description)
+              description,
+			  linkedIssues.map(obj => `https://${settings.jiraSettings.baseUrl}/browse/${obj}`).join(', '))
             );
           });
         });

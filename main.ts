@@ -17,7 +17,7 @@ export interface AgileTaskNotesSettings {
 const DEFAULT_SETTINGS: AgileTaskNotesSettings = {
   selectedTfsClient: 'AzureDevops',
   targetFolder: '',
-  noteTemplate: '# {{TASK_TITLE}}\n#{{TASK_TYPE}}\n\nid: {{TASK_ID}}\nstate: {{TASK_STATE}}\nAssignedTo: {{TASK_ASSIGNEDTO}}\n\nLink: {{TASK_LINK}}\n\n{{TASK_DESCRIPTION}}\n\n#todo:\n- [ ] Create todo list\n- [ ] \n\n## Notes:\n',
+  noteTemplate: '# {{TASK_TITLE}}\n#{{TASK_TYPE}}\n\nid: {{TASK_ID}}\nstate: {{TASK_STATE}}\nAssignedTo: {{TASK_ASSIGNEDTO}}\n\nLink: {{TASK_LINK}}\n\n{{TASK_DESCRIPTION}}\n\nCrosslinks: {{TASK_CROSSLINKS}}\n\n#todo:\n- [ ] Create todo list\n- [ ] \n\n## Notes:\n',
   intervalMinutes: 0,
   createKanban: true,
   teamLeaderMode: false,
@@ -131,7 +131,7 @@ export class AgileTaskNotesPluginSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
     .setName('Inital Task Content')
-    .setDesc('Set the inital content for each new task note. Available variables: {{TASK_ID}}, {{TASK_TITLE}}, {{TASK_TYPE}}, {{TASK_STATE}}, {{TASK_ASSIGNEDTO}}, {{TASK_LINK}}, {{TASK_DESCRIPTION}}')
+    .setDesc('Set the inital content for each new task note. Available variables: {{TASK_ID}}, {{TASK_TITLE}}, {{TASK_TYPE}}, {{TASK_STATE}}, {{TASK_ASSIGNEDTO}}, {{TASK_LINK}}, {{TASK_DESCRIPTION}}, {{TASK_CROSSLINKS}} (Jira only)')
     .addTextArea(text => {
         text
             .setPlaceholder('Initial content in raw markdown format')
