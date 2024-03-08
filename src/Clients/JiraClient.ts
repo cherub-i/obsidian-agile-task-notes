@@ -91,6 +91,8 @@ export class JiraClient implements ITfsClient{
         ));
         }
         
+		const j2m = require('jira2md');
+
         issueResponseList.forEach((issueResponse: any) => {
           issueResponse.json.issues.forEach((issue:any) => {
 
@@ -100,6 +102,15 @@ export class JiraClient implements ITfsClient{
               assigneeName = assignee["displayName"];
             }
 
+			let description:string = issue.fields["description"];
+
+			// this specific constellation can arise, when using monospace formatting and copy-pasting from confluence
+			description = description
+				.replace(/{{({})+/g, '{{') 
+				.replace(/({})+}}/g, '}}');
+
+			description = j2m.to_markdown(description);
+
             tasks.push(new Task(
               issue.key, 
               issue.fields["status"]["name"], 
@@ -107,7 +118,7 @@ export class JiraClient implements ITfsClient{
               issue.fields["issuetype"]["name"], 
               assigneeName, 
               `https://${settings.jiraSettings.baseUrl}/browse/${issue.key}`, 
-              issue.fields["description"])
+              description)
             );
           });
         });

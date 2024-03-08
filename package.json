@@ -26,6 +26,7 @@
 		"typescript": "4.7.4"
 	},
 	"dependencies": {
+		"jira2md": "file:../J2M",
 		"sanitizer": "^0.1.3"
 	}
 }
