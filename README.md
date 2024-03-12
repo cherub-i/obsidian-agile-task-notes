@@ -1,3 +1,23 @@
+# About this fork
+
+This fork focuses on importing issue-data from Jira into Obsidian.
+
+Current features
+- transforms issues decsiptions from Jira-markup to MD
+- proof of concept for including more/other issue-fields ("TASK_CROSSLINKS" for links to other Jira issues)
+- proof of concept for importing issues based on JQL ("Project"-mode, which imports all tickets in a project)
+
+Open topics
+- question: is it better, to keep this as a Jira-focused fork of Agile-Task-Notes or would it make more sense, to create a new plugin, which focuses on "Jira-import" (or "Jira-Import & Export")
+- idea: define issues fields on the fly, this would mean
+  - to alway read all issue fields
+  - use the actual field-names in the placeholders in settings to adress these fields
+- idea: enter a JQL-search string to select tickets for import
+- idea: allow for changes in tickets to be snyced back to existing Jira issues
+
+----------
+
+
 
 # Stay on top of your tasks with Agile-Task-Notes!
 
