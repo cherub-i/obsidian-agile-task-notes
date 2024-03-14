@@ -119,7 +119,7 @@ export class JiraClient implements ITfsClient{
               assigneeName = assignee["displayName"];
             }
 
-            let description:string = issue.fields["description"];
+            let description:string = issue.fields["description"] ?? "";
 
             // this specific constellation can arise, when using monospace formatting and copy-pasting from confluence
             description = description
@@ -268,7 +268,7 @@ export class JiraClient implements ITfsClient{
 
         while (moreResults) {
           const url = `${BaseURLApiV2}/search?jql=project=${settings.jiraSettings.projectKey}&startAt=${startAt}&maxResults=${maxPerPage}`
-        //   console.log(`fetching ${url}`);
+          // console.log(`fetching ${url}`);
           const searchResponse = await requestUrl({ method: 'GET', headers: headers, url: url });
           
           searchResponse.json.issues.forEach((issue: any) => {
